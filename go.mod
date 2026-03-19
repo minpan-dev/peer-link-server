@@ -4,6 +4,7 @@ go 1.26.1
 
 require (
 	github.com/gin-gonic/gin v1.12.0
+	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/google/uuid v1.6.0
 	github.com/livekit/protocol v1.44.1-0.20260223055551-e05f7b7a6146
 	github.com/livekit/server-sdk-go/v2 v2.16.0
