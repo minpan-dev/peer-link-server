@@ -15,12 +15,20 @@ type Config struct {
 	Redis    RedisConfig    `mapstructure:"redis"`
 	JWT      JWTConfig      `mapstructure:"jwt"`
 	Log      LogConfig      `mapstructure:"log"`
+	LiveKit  LiveKitConfig  `mapstructure:"livekit"`
 }
 
 type AppConfig struct {
 	Name    string `mapstructure:"name"`
 	Env     string `mapstructure:"env"` // local | dev | staging | prod
 	Version string `mapstructure:"version"`
+}
+
+type LiveKitConfig struct {
+	Host      string        `mapstructure:"host"`
+	APIKey    string        `mapstructure:"api_key"`
+	APISecret string        `mapstructure:"api_secret"`
+	TokenTTL  time.Duration `mapstructure:"token_ttl"`
 }
 
 type ServerConfig struct {

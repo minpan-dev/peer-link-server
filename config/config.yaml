@@ -3,6 +3,12 @@ app:
   env: local          # local | dev | staging | prod
   version: 0.1.0
 
+livekit:
+  host: "http://localhost:7880"       # 生产环境改为 wss://your-domain
+  api_key: "your_api_key"             # 生产环境通过 APP_LIVEKIT_API_KEY 注入
+  api_secret: "your_api_secret"       # 通过 APP_LIVEKIT_API_SECRET 注入
+  token_ttl: 2h
+
 server:
   host: 0.0.0.0
   port: 8080

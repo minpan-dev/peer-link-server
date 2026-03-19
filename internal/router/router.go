@@ -9,8 +9,9 @@ import (
 )
 
 type Handlers struct {
-	Health *handler.HealthHandler
-	User   *handler.UserHandler
+	Health  *handler.HealthHandler
+	User    *handler.UserHandler
+	LiveKit *handler.LiveKitHandler
 }
 
 func New(h *Handlers, log *zap.Logger) *gin.Engine {
@@ -35,6 +36,15 @@ func New(h *Handlers, log *zap.Logger) *gin.Engine {
 		users.GET("/:id", h.User.Get)
 		users.PUT("/:id", h.User.Update)
 		users.DELETE("/:id", h.User.Delete)
+
+		rooms := v1.Group("/rooms") // ② 新增路由组
+		rooms.Use(middleware.Auth())
+		rooms.POST("", h.LiveKit.CreateRoom)
+		rooms.GET("", h.LiveKit.ListRooms)
+		rooms.DELETE("/:roomName", h.LiveKit.DeleteRoom)
+		rooms.GET("/:roomName/token", h.LiveKit.GetToken)
+		rooms.GET("/:roomName/participants", h.LiveKit.ListParticipants)
+		rooms.DELETE("/:roomName/participants/:identity", h.LiveKit.RemoveParticipant)
 	}
 
 	return r

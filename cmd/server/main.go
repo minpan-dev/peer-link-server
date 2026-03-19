@@ -50,6 +50,9 @@ func main() {
 	handlers := &router.Handlers{
 		Health: handler.NewHealthHandler(),
 		User:   handler.NewUserHandler(userSvc),
+		LiveKit: handler.NewLiveKitHandler(
+			service.NewLiveKitService(&cfg.LiveKit, repository.NewRoomRepository(db)),
+		),
 	}
 
 	// 5. 初始化路由

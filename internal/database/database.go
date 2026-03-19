@@ -31,7 +31,7 @@ func New(cfg *config.DatabaseConfig, isProd bool) (*gorm.DB, error) {
 	sqlDB.SetConnMaxLifetime(cfg.ConnMaxLifetime)
 
 	// 自动迁移建表（生产环境推荐用 migrate 工具替代）
-	if err := db.AutoMigrate(&model.User{}); err != nil {
+	if err := db.AutoMigrate(&model.User{}, &model.Room{}); err != nil {
 		return nil, err
 	}
 
