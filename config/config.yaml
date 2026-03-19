@@ -1,0 +1,30 @@
+app:
+  name: peer-link-server
+  env: local          # local | dev | staging | prod
+  version: 0.1.0
+
+server:
+  host: 0.0.0.0
+  port: 8080
+  read_timeout: 15s
+  write_timeout: 15s
+  idle_timeout: 60s
+
+database:
+  dsn: "host=localhost user=postgres password=postgres dbname=peer_link port=5432 sslmode=disable TimeZone=Asia/Shanghai"
+  max_open_conns: 25
+  max_idle_conns: 5
+  conn_max_lifetime: 5m
+
+redis:
+  addr: localhost:6379
+  password: ""
+  db: 0
+
+jwt:
+  secret: "change-me-in-production"  # 生产环境通过 APP_JWT_SECRET 注入
+  expiration: 24h
+
+log:
+  level: debug    # 本地用 debug，生产用 info
+  format: console # 本地用 console，生产用 json
