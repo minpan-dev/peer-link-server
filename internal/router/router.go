@@ -14,7 +14,7 @@ type Handlers struct {
 	LiveKit *handler.LiveKitHandler
 }
 
-func New(h *Handlers, log *zap.Logger) *gin.Engine {
+func New(h *Handlers, log *zap.Logger, jwtSecret string) *gin.Engine {
 	// 不使用 gin.Default()，完全自控中间件
 	r := gin.New()
 
@@ -38,7 +38,7 @@ func New(h *Handlers, log *zap.Logger) *gin.Engine {
 		users.DELETE("/:id", h.User.Delete)
 
 		rooms := v1.Group("/rooms") // ② 新增路由组
-		rooms.Use(middleware.Auth())
+		rooms.Use(middleware.Auth(jwtSecret))
 		rooms.POST("", h.LiveKit.CreateRoom)
 		rooms.GET("", h.LiveKit.ListRooms)
 		rooms.DELETE("/:roomName", h.LiveKit.DeleteRoom)

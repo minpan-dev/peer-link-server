@@ -56,7 +56,7 @@ func main() {
 	}
 
 	// 5. 初始化路由
-	r := router.New(handlers, log)
+	r := router.New(handlers, log, cfg.JWT.Secret)
 
 	// 6. 启动 HTTP Server
 	addr := fmt.Sprintf("%s:%d", cfg.Server.Host, cfg.Server.Port)
