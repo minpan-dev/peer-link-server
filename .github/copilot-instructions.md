@@ -26,6 +26,30 @@ This file gives targeted guidance for Copilot (and similar assistants) to operat
 
 ---
 
+## CI/CD workflow and Docker
+
+- **CI Workflow**: `.github/workflows/ci.yml`
+  - When referencing this file in commits, issues, or documentation, use the path `.github/workflows/ci.yml`.
+  - Contains automated checks (build, test, lint) that run on push and pull requests.
+
+- **Docker & Local Stack**:
+  - Docker setup: `deployments/Dockerfile` (application container) and `deployments/docker-compose.yml` (full stack: Postgres + LiveKit + app).
+  - To run the local stack (Postgres + LiveKit):
+    ```
+    cd deployments && docker compose up -d
+    docker compose logs -f app
+    ```
+  - Verify the stack is healthy before running integration tests or local development.
+
+- **Commits & Conventional Commits**:
+  - Use [Conventional Commits](https://www.conventionalcommits.org/) format: `type(scope): description`
+    - Examples: `feat(auth): add JWT token refresh`, `fix(handler): correct user retrieval logic`, `docs: update README`, `chore: update dependencies`
+  - Common types: `feat`, `fix`, `docs`, `chore`, `test`, `refactor`, `perf`, `ci`
+  - Each commit should be atomic and logical; include a brief body for non-trivial changes.
+  - Pushing: Use `git push origin <branch-name>` to push your branch; the CI workflow will run automatically.
+
+---
+
 ## High-level architecture (big picture)
 
 - Language & framework: Go + Gin HTTP framework.
